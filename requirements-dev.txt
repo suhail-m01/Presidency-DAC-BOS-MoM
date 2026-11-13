@@ -1,0 +1,8 @@
+# Test-only dependencies. The product itself needs only requirements.txt.
+#
+#   ./.venv/bin/pip install -r requirements-dev.txt
+#   ./.venv/bin/playwright install --only-shell chromium    # download the browser once
+#
+# Needed by: tests/embedded_signin_test.py (sign-in inside a sandboxed, cross-origin frame)
+-r requirements.txt
+playwright>=1.40

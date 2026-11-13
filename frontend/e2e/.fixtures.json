@@ -1,0 +1,65 @@
+{
+  "baseURL": "http://127.0.0.1:55079",
+  "fixtures": {
+    "chairQueue": {
+      "workspaceId": "DAC-E2E-CHAIR",
+      "status": "pending_chairperson",
+      "department": "Cyber Security and Intelligence System",
+      "school": "School of Artificial Intelligence and Advanced Computing",
+      "meetingLabel": "DAC-1",
+      "secretaryName": "Ms Swetha Rajagopal",
+      "secretary": "swetha.rajagopal@presidencyuniversity.in",
+      "chair": "shakkeera.l@presidencyuniversity.in",
+      "external": "sekar.ramalingam@presidencyuniversity.in",
+      "momStatus": ""
+    },
+    "officeQueue": {
+      "workspaceId": "DAC-E2E-OFFICE",
+      "status": "pending",
+      "department": "Data Science and Computing System",
+      "school": "School of Artificial Intelligence and Advanced Computing",
+      "meetingLabel": "DAC-1",
+      "secretaryName": "Ms. Thabassum Khan",
+      "secretary": "thabassumkhan@presidencyuniversity.in",
+      "chair": "shakkeera.l@presidencyuniversity.in",
+      "external": "sekar.ramalingam@presidencyuniversity.in",
+      "momStatus": ""
+    },
+    "momDraft": {
+      "workspaceId": "DAC-E2E-MOM",
+      "status": "approved",
+      "department": "Artificial Intelligence and Robotics",
+      "school": "School of Artificial Intelligence and Advanced Computing",
+      "meetingLabel": "DAC-1",
+      "secretaryName": "Dr. Poonam Nilesh Yadav",
+      "secretary": "poonam.nilesh@presidencyuniversity.in",
+      "chair": "shakkeera.l@presidencyuniversity.in",
+      "external": "sekar.ramalingam@presidencyuniversity.in",
+      "momStatus": ""
+    },
+    "externalPending": {
+      "workspaceId": "DAC-E2E-EXTERNAL",
+      "status": "approved",
+      "department": "Civil Engineering",
+      "school": "School of Engineering",
+      "meetingLabel": "DAC-1",
+      "secretaryName": "Mr. Ajay H A",
+      "secretary": "ajay@presidencyuniversity.in",
+      "chair": "deansoe@presidencyuniversity.in",
+      "external": "chandrasekar.v@presidencyuniversity.in",
+      "momStatus": "pending_office"
+    },
+    "atrReady": {
+      "workspaceId": "DAC-E2E-ATR",
+      "status": "approved",
+      "department": "Electrical and Electronics Engineering",
+      "school": "School of Engineering",
+      "meetingLabel": "DAC-1",
+      "secretaryName": "Dr. MTL Gayatri",
+      "secretary": "gayatri.mtl@presidencyuniversity.in",
+      "chair": "deansoe@presidencyuniversity.in",
+      "external": "pradeepkumar@presidencyuniversity.in",
+      "momStatus": "approved"
+    }
+  }
+}
