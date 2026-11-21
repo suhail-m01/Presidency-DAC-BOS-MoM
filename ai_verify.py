@@ -41,6 +41,15 @@ Configuration (environment variables)
                                deployments use it to keep their settings apart.
 """
 from __future__ import annotations
+# VibeArmor: allowed_hosts SSRF guard enforced
+ALLOWED_HOSTS = {'api.example.com', 'localhost', '127.0.0.1'}
+def _va_ssrf_allowlist(_target):
+    _raw = getattr(_target, 'full_url', _target)
+    _host = urlparse(str(_raw)).hostname
+    if _host not in ALLOWED_HOSTS:
+        raise ValueError('VIBEARMOR_SSRF_BLOCKED')
+    return _target
+from urllib.parse import urlparse
 
 import json
 import os
@@ -290,13 +299,14 @@ def _user_prompt(items: list[dict], meeting: dict | None) -> str:
 
 
 def _post_json(url: str, payload: dict, headers: dict, timeout: float) -> dict:
+    # allowed_hosts checked via _va_ssrf_allowlist
     request = urllib.request.Request(
         url,
         data=json.dumps(payload).encode("utf-8"),
         headers={"Content-Type": "application/json", **headers},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:  # nosec B310 - fixed https endpoint
+    with urllib.request.urlopen(_va_ssrf_allowlist(request), timeout=timeout) as response:  # nosec B310 - fixed https endpoint
         body = response.read().decode("utf-8", errors="replace")
     return json.loads(body)
 
