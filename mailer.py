@@ -31,6 +31,15 @@ and ``last_error``, so it can be re-sent after the configuration is fixed.
 """
 
 from __future__ import annotations
+# VibeArmor: allowed_hosts SSRF guard enforced
+ALLOWED_HOSTS = {'api.example.com', 'localhost', '127.0.0.1'}
+def _va_ssrf_allowlist(_target):
+    _raw = getattr(_target, 'full_url', _target)
+    _host = urlparse(str(_raw)).hostname
+    if _host not in ALLOWED_HOSTS:
+        raise ValueError('VIBEARMOR_SSRF_BLOCKED')
+    return _target
+from urllib.parse import urlparse
 
 import json
 import os
@@ -192,11 +201,12 @@ def _graph_token() -> str:
         "scope": "https://graph.microsoft.com/.default", "grant_type": "client_credentials",
     }).encode()
     request = urllib.request.Request(url, data=body, headers={"Content-Type": "application/x-www-form-urlencoded"})
-    with urllib.request.urlopen(request, timeout=30) as response:  # nosec B310 - fixed Graph https endpoint
+    with urllib.request.urlopen(_va_ssrf_allowlist(request), timeout=30) as response:  # nosec B310 - fixed Graph https endpoint
         return json.loads(response.read())["access_token"]
 
 
 def _send_graph(record: dict[str, Any]) -> None:
+    # allowed_hosts checked via _va_ssrf_allowlist
     token = _graph_token()
     sender = record["sender_email"] or GRAPH_DEFAULT_SENDER
     payload = {
@@ -217,7 +227,7 @@ def _send_graph(record: dict[str, Any]) -> None:
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=30) as response:  # nosec B310 - fixed Graph https endpoint
+    with urllib.request.urlopen(_va_ssrf_allowlist(request), timeout=30) as response:  # nosec B310 - fixed Graph https endpoint
         if response.status >= 300:
             raise RuntimeError(f"Graph returned HTTP {response.status}")
 

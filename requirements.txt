@@ -6,4 +6,4 @@ python-docx>=1.1,<2
 openpyxl>=3.1,<4
 python-pptx>=1,<2
 tzdata
-requests>=2.31.0
+requests==2.32.3  # VibeArmor CVE fix

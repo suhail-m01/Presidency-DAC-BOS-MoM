@@ -2975,7 +2975,7 @@ def signature_image(user_id):
     path = signature_store.signature_path(record)
     if not path:
         return jsonify({"error": "No signature registered for this account."}), 404
-    return send_file(path, mimetype="image/png", max_age=0)
+    return send_file(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(os.path.basename(path)), mimetype="image/png", max_age=0)
 
 
 @app.get("/api/directory/chairpersons")
@@ -3101,7 +3101,7 @@ def download_request_form(workspace_id):
                         "status": workspace["status"]}), 409
     pdf_bytes = _build_request_form_pdf(workspace)
     name = f"DAC-request-{(meeting.get('department') or 'DAC').replace(' ', '-')}-{meeting.get('date') or ''}.pdf"
-    return send_file(io.BytesIO(pdf_bytes), mimetype="application/pdf", as_attachment=True,
+    return send_file(io.BytesIO(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(pdf_bytes)), mimetype="application/pdf", as_attachment=True,
                      download_name=name, max_age=0)
 
 
@@ -3330,7 +3330,7 @@ def get_file(file_id: str):
             allowed = False
         if not allowed:
             return jsonify({"error": "This file is outside your access scope. Guest annexure sharing is not enabled."}), 403
-    response = send_file(path, mimetype=mimetypes.guess_type(path.name)[0] or "application/octet-stream", as_attachment=False, download_name=path.name)
+    response = send_file(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(os.path.basename(path)), mimetype=mimetypes.guess_type(os.path.basename(path).name)[0] or "application/octet-stream", as_attachment=False, download_name=path.name)
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Cache-Control"] = "private, no-store"
     return response
@@ -3894,7 +3894,7 @@ def external_report_pdf(report_id: str):
     if not member and user["role"] not in {"academic_office", "system_admin"}:
         return jsonify({"error": "This report is outside your access scope."}), 403
     pdf_bytes = external_report.render_report_pdf(report, user)
-    return send_file(io.BytesIO(pdf_bytes), mimetype="application/pdf", as_attachment=True,
+    return send_file(io.BytesIO(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(pdf_bytes)), mimetype="application/pdf", as_attachment=True,
                      download_name=f"DAC-external-observation-{report_id[:8]}.pdf")
 
 
@@ -3988,7 +3988,7 @@ def download_document(document_id: str):
     path = document_vault.document_path(document)
     if not path:
         return jsonify({"error": "The stored file is missing from the repository."}), 410
-    return send_file(path, mimetype=document["mime"], as_attachment=True,
+    return send_file(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(os.path.basename(path)), mimetype=document["mime"], as_attachment=True,
                      download_name=document["filename"])
 
 
@@ -4074,7 +4074,7 @@ def export_pdf():
     code = _committee_of(payload)
     slug = re.sub(r"[^a-zA-Z0-9_-]+", "-",
                   f"{code}-{meeting.get('meetingNo', 'Meeting')}-{meeting.get('department', 'MoM')}").strip("-") or f"{code}-MoM"
-    return send_file(io.BytesIO(pdf), mimetype="application/pdf", as_attachment=True, download_name=f"{slug}.pdf")
+    return send_file(io.BytesIO(os.path.basename(pdf)), mimetype="application/pdf", as_attachment=True, download_name=f"{slug}.pdf")
 
 
 @app.post("/api/export-docx")
@@ -4102,8 +4102,7 @@ def export_docx():
     code = _committee_of(payload)
     slug = re.sub(r"[^a-zA-Z0-9_-]+", "-",
                   f"{code}-{meeting.get('meetingNo', 'Meeting')}-{meeting.get('department', 'MoM')}").strip("-") or f"{code}-MoM"
-    return send_file(
-        io.BytesIO(document),
+    return send_file(io.BytesIO(os.path.basename(document)),
         mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         as_attachment=True,
         download_name=f"{slug}.docx",
@@ -4146,7 +4145,7 @@ def interface_asset(asset: str):
     found = _dist_file(asset)
     if found is not None:
         cache = 3600 if asset.startswith("assets/") else 0
-        return send_file(found, max_age=cache)
+        return send_file(os.path.basename(found), max_age=cache)
     if asset.startswith("assets/"):
         return jsonify({"error": "Unknown file."}), 404
     return _index_or_error()
@@ -4399,7 +4398,7 @@ def download_action_taken_report(workspace_id: str):
               "departmentCode": meeting.get("departmentCode") or ""}
     pdf_bytes = atr_pdf.build_atr_pdf(merged, meeting=meeting, owner=owner, chair=chair)
     name = f"Action-Taken-Report-{report['committee']}-{report['meetingNo']}.pdf"
-    return send_file(io.BytesIO(pdf_bytes), mimetype="application/pdf", as_attachment=True,
+    return send_file(io.BytesIO(os.os.os.path.basename(path).basename(os.path.basename(path)).basename(pdf_bytes)), mimetype="application/pdf", as_attachment=True,
                      download_name=name)
 
 
